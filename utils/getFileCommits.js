@@ -45,14 +45,15 @@ const fetchCommits = async (path) => {
   return json;
 };
 
-const getFileCommits = async (file, useCache) => {
-  console.log('useCache', useCache);
+const getFileCommits = async (file, useFilesystemCache, useMemoryCache) => {
+  console.log('useFilesystemCache', useFilesystemCache);
+  console.log('useMemoryCache', useMemoryCache);
   const fs = require('fs');
   let cachedCommits = {};
   const frontmatterKeys = Object.keys(file.data.frontmatter);
   const path = file.fileRelativePath;
 
-  if (useCache) {
+  if (useFilesystemCache) {
     try {
       const commitsRead = fs.readFileSync('cachefile', 'utf8');
       cachedCommits = JSON.parse(commitsRead || {});
@@ -71,7 +72,7 @@ const getFileCommits = async (file, useCache) => {
         cacheEntry[path][cb] = metadataCallbacks[cb](commitsFetched || []);
     }
 
-    if (useCache) {
+    if (useFilesystemCache) {
       const jsonifiedCommit = JSON.stringify({ ...cachedCommits, ...cacheEntry });
       try {
         await fs.writeFileSync('cachefile', jsonifiedCommit, function (err) {
@@ -82,6 +83,9 @@ const getFileCommits = async (file, useCache) => {
       } catch (error) {
         // A cached file is not required
       }
+    } else if (useMemoryCache) {
+      console.log('useMem cache', useMemoryCache);
+      cachedCommits = { ...cachedCommits, ...cacheEntry };
     }
 
     return cacheEntry[path];
