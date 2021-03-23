@@ -9,6 +9,7 @@ contentType: documentation
 group: test-group
 slug: a-parent-document
 date: 'Mon Mar 22 2021 18:06:02 GMT-0600 (Mountain Daylight Time)'
+root: true
 ---
 # A Parent Document
 
