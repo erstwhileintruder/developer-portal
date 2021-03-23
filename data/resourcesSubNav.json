@@ -1,15 +1,15 @@
 {
   "navItems": [
     {
-      "name": "Test Group",
-      "url": "/documentation/a-parent-document",
-      "id": "wl7n3a9pm"
-    },
-    {
       "url": "/documentation/introduction-to-the-maker-protocol",
       "name": "Introduction",
       "slug": "maker-protocol-introduction",
       "id": "1"
+    },
+    {
+      "name": "Test Group",
+      "url": "/documentation/a-parent-document",
+      "id": "wl7n3a9pm"
     },
     {
       "url": "/documentation/introduction-to-core-module",
